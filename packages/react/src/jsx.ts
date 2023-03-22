@@ -25,12 +25,7 @@ const ReactElement = function (
 	return element;
 };
 
-// TODO 这里为什么不是直接从config里去取children，这是使用createElement函数的形式从剩余参数里取
-export const jsx = function (
-	type: ElementType,
-	config: any,
-	...maybeChildren: any[]
-) {
+export const jsx = function (type: ElementType, config: any) {
 	let key: Key = null;
 	const props: Props = {};
 	let ref: Ref = null;
@@ -54,13 +49,6 @@ export const jsx = function (
 		if (Object.hasOwnProperty.call(config, prop)) {
 			props[prop] = val;
 		}
-	}
-
-	const maybeChildrenLength = maybeChildren.length;
-	if (maybeChildrenLength === 1) {
-		props.children = maybeChildren[0];
-	} else {
-		props.children = maybeChildren;
 	}
 
 	return ReactElement(type, key, ref, props);
