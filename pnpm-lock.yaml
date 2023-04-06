@@ -7,6 +7,7 @@ importers:
       '@commitlint/cli': ^17.4.4
       '@commitlint/config-conventional': ^17.4.4
       '@rollup/plugin-commonjs': ^24.0.1
+      '@rollup/plugin-replace': ^5.0.2
       '@typescript-eslint/eslint-plugin': ^5.56.0
       '@typescript-eslint/parser': ^5.56.0
       commitlint: ^17.4.4
@@ -22,6 +23,8 @@ importers:
       rollup-plugin-generate-package-json: ^3.2.0
       rollup-plugin-typescript2: ^0.34.1
       typescript: ^5.0.2
+    dependencies:
+      '@rollup/plugin-replace': 5.0.2_rollup@3.20.0
     devDependencies:
       '@commitlint/cli': 17.4.4
       '@commitlint/config-conventional': 17.4.4
@@ -313,7 +316,6 @@ packages:
 
   /@jridgewell/sourcemap-codec/1.4.14:
     resolution: {integrity: sha512-XPSJHWmi394fuUuzDnGz1wiKqWfo1yXecHQMRf2l6hztTO+nPru658AyDngaBe7isIxEkRsPR3FZh+s7iVa4Uw==}
-    dev: true
 
   /@jridgewell/trace-mapping/0.3.9:
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
@@ -361,6 +363,20 @@ packages:
       rollup: 3.20.0
     dev: true
 
+  /@rollup/plugin-replace/5.0.2_rollup@3.20.0:
+    resolution: {integrity: sha512-M9YXNekv/C/iHHK+cvORzfRYfPbq0RDD8r0G+bMiTXjNGKulPnCT9O3Ss46WfhI6ZOCgApOP7xAdmCQJ+U2LAA==, tarball: http://npm.internal.focus.cn:80/@rollup%2fplugin-replace/-/plugin-replace-5.0.2.tgz}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      '@rollup/pluginutils': 5.0.2_rollup@3.20.0
+      magic-string: 0.27.0
+      rollup: 3.20.0
+    dev: false
+
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
     engines: {node: '>= 8.0.0'}
@@ -382,7 +398,6 @@ packages:
       estree-walker: 2.0.2
       picomatch: 2.3.1
       rollup: 3.20.0
-    dev: true
 
   /@tsconfig/node10/1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
@@ -402,7 +417,6 @@ packages:
 
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
-    dev: true
 
   /@types/json-schema/7.0.11:
     resolution: {integrity: sha512-wOuvG1SN4Us4rez+tylwwwCV1psiNVOkJeM3AUWUNWg/jDQY2+HE/444y5gc+jBmRqASOm2Oeh5c1axHobwRKQ==}
@@ -417,7 +431,7 @@ packages:
     dev: true
 
   /@types/normalize-package-data/2.4.1:
-    resolution: {integrity: sha1-0zV0eaD9/dWQf+Z+F+CoXJBuEwE=, tarball: http://npm.internal.focus.cn:80/@types%2fnormalize-package-data/-/normalize-package-data-2.4.1.tgz}
+    resolution: {integrity: sha1-0zV0eaD9/dWQf+Z+F+CoXJBuEwE=}
     dev: true
 
   /@types/semver/7.3.13:
@@ -932,7 +946,7 @@ packages:
     dev: true
 
   /detect-indent/5.0.0:
-    resolution: {integrity: sha1-OHHMCmoALow+Wzz38zYmRnXwa50=, tarball: http://npm.internal.focus.cn:80/detect-indent/-/detect-indent-5.0.0.tgz}
+    resolution: {integrity: sha1-OHHMCmoALow+Wzz38zYmRnXwa50=}
     engines: {node: '>=4'}
     dev: true
 
@@ -1126,7 +1140,6 @@ packages:
 
   /estree-walker/2.0.2:
     resolution: {integrity: sha1-UvAQF4wqTBF6d1fP6UKtt9LaTKw=}
-    dev: true
 
   /esutils/2.0.3:
     resolution: {integrity: sha1-dNLrTeC42hKTcRkQ1Qd1ubcQ72Q=}
@@ -1406,7 +1419,7 @@ packages:
     dev: true
 
   /hosted-git-info/2.8.9:
-    resolution: {integrity: sha1-3/wL+aIcAiCQkPKqaUKeFBTa8/k=, tarball: http://npm.internal.focus.cn:80/hosted-git-info/-/hosted-git-info-2.8.9.tgz}
+    resolution: {integrity: sha1-3/wL+aIcAiCQkPKqaUKeFBTa8/k=}
     dev: true
 
   /hosted-git-info/4.1.0:
@@ -1742,10 +1755,9 @@ packages:
     engines: {node: '>=12'}
     dependencies:
       '@jridgewell/sourcemap-codec': 1.4.14
-    dev: true
 
   /make-dir/2.1.0:
-    resolution: {integrity: sha1-XwMQ4YuL6JjMBwCSlaMK5B6R5vU=, tarball: http://npm.internal.focus.cn:80/make-dir/-/make-dir-2.1.0.tgz}
+    resolution: {integrity: sha1-XwMQ4YuL6JjMBwCSlaMK5B6R5vU=}
     engines: {node: '>=6'}
     dependencies:
       pify: 4.0.1
@@ -1873,7 +1885,7 @@ packages:
     dev: true
 
   /normalize-package-data/2.5.0:
-    resolution: {integrity: sha1-5m2xg4sgDB38IzIl0SyzZSDiNKg=, tarball: http://npm.internal.focus.cn:80/normalize-package-data/-/normalize-package-data-2.5.0.tgz}
+    resolution: {integrity: sha1-5m2xg4sgDB38IzIl0SyzZSDiNKg=}
     dependencies:
       hosted-git-info: 2.8.9
       resolve: 1.22.1
@@ -2024,7 +2036,7 @@ packages:
     dev: true
 
   /path-parse/1.0.7:
-    resolution: {integrity: sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=, tarball: http://npm.internal.focus.cn:80/path-parse/-/path-parse-1.0.7.tgz}
+    resolution: {integrity: sha1-+8EUtgykKzDZ2vWFjkvWi77bZzU=}
     dev: true
 
   /path-scurry/1.6.2:
@@ -2043,7 +2055,6 @@ packages:
   /picomatch/2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
     engines: {node: '>=8.6'}
-    dev: true
 
   /pidtree/0.6.0:
     resolution: {integrity: sha512-eG2dWTVw5bzqGRztnHExczNxt5VGsE6OwTeCG3fdUf9KBsZzO3R5OIIIzWR+iZA0NtZ+RDVdaoE2dK1cn6jH4g==}
@@ -2052,7 +2063,7 @@ packages:
     dev: true
 
   /pify/4.0.1:
-    resolution: {integrity: sha1-SyzSXFDVmHNcUCkiJP2MbfQeMjE=, tarball: http://npm.internal.focus.cn:80/pify/-/pify-4.0.1.tgz}
+    resolution: {integrity: sha1-SyzSXFDVmHNcUCkiJP2MbfQeMjE=}
     engines: {node: '>=6'}
     dev: true
 
@@ -2110,7 +2121,7 @@ packages:
     dev: true
 
   /read-pkg/5.2.0:
-    resolution: {integrity: sha1-e/KVQ4yloz5WzTDgU7NO5yUMk8w=, tarball: http://npm.internal.focus.cn:80/read-pkg/-/read-pkg-5.2.0.tgz}
+    resolution: {integrity: sha1-e/KVQ4yloz5WzTDgU7NO5yUMk8w=}
     engines: {node: '>=8'}
     dependencies:
       '@types/normalize-package-data': 2.4.1
@@ -2164,7 +2175,7 @@ packages:
     dev: true
 
   /resolve/1.22.1:
-    resolution: {integrity: sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==, tarball: http://npm.internal.focus.cn:80/resolve/-/resolve-1.22.1.tgz}
+    resolution: {integrity: sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==}
     hasBin: true
     dependencies:
       is-core-module: 2.11.0
@@ -2205,7 +2216,7 @@ packages:
     dev: true
 
   /rollup-plugin-generate-package-json/3.2.0_rollup@3.20.0:
-    resolution: {integrity: sha512-+Kq1kFVr+maxW/mZB+E+XuaieCXVZqjl2tNU9k3TtAMs3NOaeREa5sRHy67qKDmcnFtZZukIQ3dFCcnV+r0xyw==, tarball: http://npm.internal.focus.cn:80/rollup-plugin-generate-package-json/-/rollup-plugin-generate-package-json-3.2.0.tgz}
+    resolution: {integrity: sha512-+Kq1kFVr+maxW/mZB+E+XuaieCXVZqjl2tNU9k3TtAMs3NOaeREa5sRHy67qKDmcnFtZZukIQ3dFCcnV+r0xyw==}
     engines: {node: '>=8.3'}
     peerDependencies:
       rollup: '>=1.0.0'
@@ -2255,7 +2266,7 @@ packages:
     dev: true
 
   /semver/5.7.1:
-    resolution: {integrity: sha1-qVT5Ma66UI0we78Gnv8MAclhFvc=, tarball: http://npm.internal.focus.cn:80/semver/-/semver-5.7.1.tgz}
+    resolution: {integrity: sha1-qVT5Ma66UI0we78Gnv8MAclhFvc=}
     hasBin: true
     dev: true
 
@@ -2320,7 +2331,7 @@ packages:
     dev: true
 
   /sort-keys/2.0.0:
-    resolution: {integrity: sha1-ZYU1WEhh7JfXMNbPQYIuH1ZoQSg=, tarball: http://npm.internal.focus.cn:80/sort-keys/-/sort-keys-2.0.0.tgz}
+    resolution: {integrity: sha1-ZYU1WEhh7JfXMNbPQYIuH1ZoQSg=}
     engines: {node: '>=4'}
     dependencies:
       is-plain-obj: 1.1.0
@@ -2434,7 +2445,7 @@ packages:
     dev: true
 
   /supports-preserve-symlinks-flag/1.0.0:
-    resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==, tarball: http://npm.internal.focus.cn:80/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz}
+    resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: true
 
@@ -2541,12 +2552,12 @@ packages:
     dev: true
 
   /type-fest/0.4.1:
-    resolution: {integrity: sha1-i993dDOF2KTxO6lfYQ9czWjHKPg=, tarball: http://npm.internal.focus.cn:80/type-fest/-/type-fest-0.4.1.tgz}
+    resolution: {integrity: sha1-i993dDOF2KTxO6lfYQ9czWjHKPg=}
     engines: {node: '>=6'}
     dev: true
 
   /type-fest/0.6.0:
-    resolution: {integrity: sha1-jSojcNPfiG61yQraHFv2GIrPg4s=, tarball: http://npm.internal.focus.cn:80/type-fest/-/type-fest-0.6.0.tgz}
+    resolution: {integrity: sha1-jSojcNPfiG61yQraHFv2GIrPg4s=}
     engines: {node: '>=8'}
     dev: true
 
@@ -2629,7 +2640,7 @@ packages:
     dev: true
 
   /write-file-atomic/2.4.3:
-    resolution: {integrity: sha1-H9Lprh3z51uNjDZ0Q8aS1MqB9IE=, tarball: http://npm.internal.focus.cn:80/write-file-atomic/-/write-file-atomic-2.4.3.tgz}
+    resolution: {integrity: sha1-H9Lprh3z51uNjDZ0Q8aS1MqB9IE=}
     dependencies:
       graceful-fs: 4.2.11
       imurmurhash: 0.1.4
@@ -2637,7 +2648,7 @@ packages:
     dev: true
 
   /write-json-file/3.2.0:
-    resolution: {integrity: sha1-Zbvcns2KFFjhWVJ3DMut/P9f5io=, tarball: http://npm.internal.focus.cn:80/write-json-file/-/write-json-file-3.2.0.tgz}
+    resolution: {integrity: sha1-Zbvcns2KFFjhWVJ3DMut/P9f5io=}
     engines: {node: '>=6'}
     dependencies:
       detect-indent: 5.0.0
@@ -2649,7 +2660,7 @@ packages:
     dev: true
 
   /write-pkg/4.0.0:
-    resolution: {integrity: sha1-Z1zATvbBH6rLvHdxskwKu/KiADk=, tarball: http://npm.internal.focus.cn:80/write-pkg/-/write-pkg-4.0.0.tgz}
+    resolution: {integrity: sha1-Z1zATvbBH6rLvHdxskwKu/KiADk=}
     engines: {node: '>=8'}
     dependencies:
       sort-keys: 2.0.0

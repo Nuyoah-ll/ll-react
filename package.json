@@ -37,5 +37,8 @@
 		"*.{html,ts,js,json,md}": [
 			"prettier --write"
 		]
+	},
+	"dependencies": {
+		"@rollup/plugin-replace": "^5.0.2"
 	}
 }
