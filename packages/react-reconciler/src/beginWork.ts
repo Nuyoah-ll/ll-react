@@ -24,8 +24,9 @@ export const beginWork = (wip: FiberNode) => {
 	}
 };
 
-//! q 这个得children类型写错了吧？应该是ReactElementType | ReactElementType[]
+//? q 这个得children类型写错了吧？应该是ReactElementType | ReactElementType[]
 function reconcileChildren(wip: FiberNode, children?: ReactElementType) {
+	//? q wip.alternate是在哪里赋值的？
 	const current = wip.alternate;
 	if (current !== null) {
 		// update
@@ -41,6 +42,7 @@ function reconcileChildren(wip: FiberNode, children?: ReactElementType) {
 // 2. 创造子fiberNode（通过对比子current fiberNode和子react element来生成子wip fiberNode）
 function updateHostRoot(wip: FiberNode) {
 	const baseState = wip.memorizedState;
+	//? q 这里是mount阶段和更新阶段都是ReactElementType类型的UpdateQueue？
 	const updateQueue = wip.updateQueue as UpdateQueue<ReactElementType>;
 	const pending = updateQueue.shared.pending;
 	updateQueue.shared.pending = null;
