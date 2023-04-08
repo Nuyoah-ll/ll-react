@@ -1,4 +1,6 @@
 import {
+	Container,
+	Instance,
 	appendInitialChild,
 	createInstance,
 	createTextInstance
@@ -18,7 +20,8 @@ export const completeWork = (wip: FiberNode) => {
 			} else {
 				// 首屏渲染
 				// 1.构建DOM
-				const instacne = createInstance(wip.type, newProps);
+				// const instacne = createInstance(wip.type, newProps);
+				const instacne = createInstance(wip.type);
 				// 2.将DOM插入到离屏DOM树种
 				appendAllChildren(instacne, wip);
 				wip.stateNode = instacne;
@@ -53,7 +56,7 @@ export const completeWork = (wip: FiberNode) => {
 };
 
 //? q 这里的parent不是一个fiberNode，而是一个真实DOM
-function appendAllChildren(parent: FiberNode, wip: FiberNode) {
+function appendAllChildren(parent: Container, wip: FiberNode) {
 	let node = wip.child;
 
 	// B
