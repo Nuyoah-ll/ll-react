@@ -6,6 +6,7 @@ importers:
     specifiers:
       '@commitlint/cli': ^17.4.4
       '@commitlint/config-conventional': ^17.4.4
+      '@rollup/plugin-alias': ^5.0.0
       '@rollup/plugin-commonjs': ^24.0.1
       '@rollup/plugin-replace': ^5.0.2
       '@typescript-eslint/eslint-plugin': ^5.56.0
@@ -28,6 +29,7 @@ importers:
     devDependencies:
       '@commitlint/cli': 17.4.4
       '@commitlint/config-conventional': 17.4.4
+      '@rollup/plugin-alias': 5.0.0_rollup@3.20.0
       '@rollup/plugin-commonjs': 24.0.1_rollup@3.20.0
       '@typescript-eslint/eslint-plugin': 5.56.0_d1c49064c568670e6a6217f618eab47f
       '@typescript-eslint/parser': 5.56.0_eslint@8.36.0+typescript@5.0.2
@@ -345,6 +347,19 @@ packages:
       fastq: 1.15.0
     dev: true
 
+  /@rollup/plugin-alias/5.0.0_rollup@3.20.0:
+    resolution: {integrity: sha512-l9hY5chSCjuFRPsnRm16twWBiSApl2uYFLsepQYwtBuAxNMQ/1dJqADld40P0Jkqm65GRTLy/AC6hnpVebtLsA==, tarball: http://npm.internal.focus.cn:80/@rollup%2fplugin-alias/-/plugin-alias-5.0.0.tgz}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      rollup:
+        optional: true
+    dependencies:
+      rollup: 3.20.0
+      slash: 4.0.0
+    dev: true
+
   /@rollup/plugin-commonjs/24.0.1_rollup@3.20.0:
     resolution: {integrity: sha512-15LsiWRZk4eOGqvrJyu3z3DaBu5BhXIMeWnijSRvd8irrrg9SHpQ1pH+BUK4H6Z9wL9yOxZJMTLU+Au86XHxow==}
     engines: {node: '>=14.0.0'}
@@ -364,7 +379,7 @@ packages:
     dev: true
 
   /@rollup/plugin-replace/5.0.2_rollup@3.20.0:
-    resolution: {integrity: sha512-M9YXNekv/C/iHHK+cvORzfRYfPbq0RDD8r0G+bMiTXjNGKulPnCT9O3Ss46WfhI6ZOCgApOP7xAdmCQJ+U2LAA==, tarball: http://npm.internal.focus.cn:80/@rollup%2fplugin-replace/-/plugin-replace-5.0.2.tgz}
+    resolution: {integrity: sha512-M9YXNekv/C/iHHK+cvORzfRYfPbq0RDD8r0G+bMiTXjNGKulPnCT9O3Ss46WfhI6ZOCgApOP7xAdmCQJ+U2LAA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^1.20.0||^2.0.0||^3.0.0
@@ -2300,8 +2315,13 @@ packages:
     dev: true
 
   /slash/3.0.0:
-    resolution: {integrity: sha1-ZTm+hwwWWtvVJAIg2+Nh8bxNRjQ=}
+    resolution: {integrity: sha1-ZTm+hwwWWtvVJAIg2+Nh8bxNRjQ=, tarball: http://npm.internal.focus.cn:80/slash/-/slash-3.0.0.tgz}
     engines: {node: '>=8'}
+    dev: true
+
+  /slash/4.0.0:
+    resolution: {integrity: sha1-JCI3IXbExsWt214q2oha+YSzlqc=, tarball: http://npm.internal.focus.cn:80/slash/-/slash-4.0.0.tgz}
+    engines: {node: '>=12'}
     dev: true
 
   /slice-ansi/3.0.0:
