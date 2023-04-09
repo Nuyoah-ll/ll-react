@@ -30,7 +30,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 	function placeSingleChild(fiber: FiberNode) {
 		// 代表首屏渲染，并且应该标记副作用的情况下
 		if (shouldTrackEffects && fiber.alternate === null) {
-			fiber.flags != Placement;
+			fiber.flags |= Placement;
 		}
 		return fiber;
 	}
