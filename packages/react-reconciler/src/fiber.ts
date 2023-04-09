@@ -33,6 +33,7 @@ export class FiberNode {
 	// 副作用
 	flags: Flags;
 	subTreeFlags: Flags;
+	// TODO 完成类型定义
 	updateQueue: unknown;
 
 	constructor(tag: WorkTag, pendingProps: Props, key: Key) {
@@ -87,24 +88,34 @@ export const createWorkInProgress = (
 		// mount
 		wip = new FiberNode(current.tag, pendingProps, current.key);
 		wip.stateNode = current.stateNode;
+
 		wip.alternate = current;
 		current.alternate = wip;
 	} else {
-		// update
+		// TODO update
+		//? q update阶段，为什么要进行这些以及下面的这些操作（实现了update逻辑之后看看）
 		wip.pendingProps = pendingProps;
 		wip.flags = NoFlags;
 		wip.subTreeFlags = NoFlags;
 	}
+	//? q 如果是mount阶段，下面除了updateQueue其实没有必要再赋值了吧？
 	wip.type = current.type;
 	wip.updateQueue = current.updateQueue;
+	wip.flags = current.flags;
 	wip.child = current.child;
 	wip.memorizedProps = current.memorizedProps;
 	wip.memorizedState = current.memorizedState;
 	return wip;
 };
 
+/**
+ * 根据element创建fiber，element只会是宿主原生元素或者是函数组件
+ * @param element react element
+ * @returns 这个element对应的fiber
+ */
 export function createFiberFromElement(element: ReactElementType): FiberNode {
 	const { type, key, props } = element;
+	// FunctionComponent | HostComponent
 	let fiberTag: WorkTag = FunctionComponent;
 
 	if (typeof type === 'string') {

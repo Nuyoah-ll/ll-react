@@ -21,6 +21,7 @@ export const beginWork = (wip: FiberNode) => {
 		case HostComponent:
 			return updateHostComponent(wip);
 
+		// hostText类型的fiber没有子节点，不需要进行任何操作，直接返回null即可
 		case HostText:
 			return null;
 
@@ -35,8 +36,10 @@ export const beginWork = (wip: FiberNode) => {
 
 //? q 这个得children类型写错了吧？应该是ReactElementType | ReactElementType[]
 function reconcileChildren(wip: FiberNode, children?: ReactElementType) {
-	//? q wip.alternate是在哪里赋值的？
+	//? q 除了hostRootFiber，wip.alternate是在哪里赋值的？
 	const current = wip.alternate;
+	// 首次渲染只有一个节点会走update，那就是hostRootFiber。看后续代码就会发现，这样会给<App />对应的wip fiber加上Placement标记
+	// 如果走mountChildFibers，那么<App /> 对应的wip fiber上不会有Placemen标记
 	if (current !== null) {
 		// update
 		wip.child = reconcileChildFibers(wip, current.child, children);

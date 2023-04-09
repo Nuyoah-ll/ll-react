@@ -57,7 +57,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 			}
 		}
 
-		// 多节点：new Child应该为数组？
+		// TODO 多节点：new Child应该为数组？
 
 		// 文本节点
 		if (typeof newChild === 'string' || typeof newChild === 'number') {

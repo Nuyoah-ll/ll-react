@@ -4,9 +4,13 @@ import ReactDOM from 'react-dom';
 const App = () => {
 	return (
 		<div>
-			<span>llreact</span>
+			<A></A>
 		</div>
 	);
+};
+
+const A = () => {
+	return <h3>hehe</h3>;
 };
 
 console.log(React);
