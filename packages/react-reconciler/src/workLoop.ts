@@ -126,14 +126,11 @@ function performUnitOfWork(fiber: FiberNode) {
 function completeUnitOfWork(fiber: FiberNode) {
 	let node: FiberNode | null = fiber;
 	do {
-		// 两点问题：
-		// 1. 按照现在这么个逻辑，所有的fiber节点都会被执行beginWork和completeWork
-		// 2. 终止循环不能使用return，在do...while循环中执行return会报错:Illegal return statement
 		completeWork(node);
 		const sibling = node.sibling;
-		if (sibling !== null) {
+		if (sibling) {
 			workInProgress = sibling;
-			//
+			// 这里return会退出整个函数，不会执行下面的逻辑以及接下来的循环
 			return;
 		}
 		node = node.return;
