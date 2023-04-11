@@ -61,6 +61,7 @@ function renderRoot(root: FiberRootNode) {
 			workInProgress = null;
 		}
 	} while (true);
+	//! next debug position
 
 	const finishedWork = root.current.alternate;
 	root.finishedWork = finishedWork;
@@ -111,11 +112,10 @@ function performUnitOfWork(fiber: FiberNode) {
 	// 递阶段，beginWork会返回当前fiber的子fiber，next也就是子fiber
 	const next = beginWork(fiber);
 	//? q 当前fiber工作完成之后，将这个fiber的memorizedProps修改为pendingProps。这是因为在beginWork中，会改变pendingProps的值吗？所以才这么赋值
-	// 在mount阶段，对于hostRootFiber来说，beginWork并没有改变pendingProps
+	// 在mount阶段，对于hostRootFiber来说，beginWork并没有改变pendingProps。HostText类型的fiber，在经过beginWork处理之后，会在pendingProps里存入content
 	// 其他情况，再慢慢debug..
 	fiber.memorizedProps = fiber.pendingProps;
 	// 表示没有子fiber了，已经遍历到了最深的fiber，这个时候就要开始归阶段了
-	//! next debug position
 	if (next === null) {
 		completeUnitOfWork(fiber);
 	} else {
@@ -127,6 +127,7 @@ function completeUnitOfWork(fiber: FiberNode) {
 	let node: FiberNode | null = fiber;
 	do {
 		completeWork(node);
+		// TODO 实际上对于单一节点的mount，node.sibling永远等于null，这里在后续看看sibling是在哪里赋值的
 		const sibling = node.sibling;
 		if (sibling) {
 			workInProgress = sibling;
