@@ -90,13 +90,17 @@ function commitWork(root: FiberRootNode) {
 	const rootHasEffect = (finishedWork.flags & MutationMask) !== NoFlags;
 
 	if (subTreeHasEffect || rootHasEffect) {
-		// beforeMutation
-		// mutation（主要实现这个阶段 Placement相关的操作）
+		// 有副作用要执行
+
+		// 阶段1/3:beforeMutation
+
+		// 阶段2/3:Mutation（主要实现这个阶段 Placement相关的操作）
 		commitMutationEffects(finishedWork);
+
 		// mutation阶段完成，layout阶段开始之前完成fiber树的切换
 		root.current = finishedWork;
 
-		// layout
+		// 阶段3/3:Layout
 	} else {
 		root.current = finishedWork;
 	}
