@@ -24,6 +24,7 @@ export class FiberNode {
 	pendingProps: Props;
 	// 工作完成之后，确定下来的props值
 	memorizedProps: Props;
+	//! 对于FunctionComponent来说，该属性保存了一条hooks链表
 	memorizedState: any;
 	// 用于current FiberNode树和wip FiberNode树之前进行切换，比如当前fiberNode是current，那么alternate指向workInProgress，反之同理
 	// current fiberNode树是指与真实UI对应的fiber树，wip树是指触发更新之后，正在reconcile中的fiber树

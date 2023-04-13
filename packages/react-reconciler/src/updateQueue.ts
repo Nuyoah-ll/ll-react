@@ -1,3 +1,4 @@
+import { Dispatch } from 'react/src/currentDispatcher';
 import { Action } from 'shared/ReactTypes';
 // export type Action<State> = State | ((prevState: State) => State);
 // 为什么Action可以是State或者是函数，这是因为无论是setState或者是useState，都可以直接传入一个最新的State或者是传入一个更新State的函数
@@ -13,6 +14,7 @@ export interface UpdateQueue<State> {
 		// TODO 这里不应该是一个数组?
 		pending: Update<State> | null;
 	};
+	dispatch: Dispatch<State> | null;
 }
 
 // 创建一个Update
@@ -27,7 +29,8 @@ export const createUpdateQueue = <State>(): UpdateQueue<State> => {
 	return {
 		shared: {
 			pending: null
-		}
+		},
+		dispatch: null
 	};
 };
 
