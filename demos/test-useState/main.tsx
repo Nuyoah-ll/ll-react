@@ -2,7 +2,8 @@ import { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 const App = () => {
-	const [num] = useState(100);
+	const [num, setNum] = useState(100);
+	window.setNum = setNum;
 	return <div>{num}</div>;
 };
 
