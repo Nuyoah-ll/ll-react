@@ -13,6 +13,9 @@
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"@babel/core": "^7.21.4",
+		"@babel/plugin-transform-react-jsx": "^7.21.0",
+		"@babel/preset-env": "^7.21.4",
 		"@commitlint/cli": "^17.4.4",
 		"@commitlint/config-conventional": "^17.4.4",
 		"@rollup/plugin-alias": "^5.0.0",
