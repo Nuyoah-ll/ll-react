@@ -36,6 +36,7 @@ export class FiberNode {
 	subTreeFlags: Flags;
 	// TODO 完成类型定义
 	updateQueue: unknown;
+	deletions: FiberNode[] | null;
 
 	constructor(tag: WorkTag, pendingProps: Props, key: Key) {
 		this.ref = null;
@@ -58,6 +59,7 @@ export class FiberNode {
 		this.flags = NoFlags;
 		this.subTreeFlags = NoFlags;
 		this.updateQueue = null;
+		this.deletions = null;
 	}
 }
 
@@ -98,6 +100,7 @@ export const createWorkInProgress = (
 		wip.pendingProps = pendingProps;
 		wip.flags = NoFlags;
 		wip.subTreeFlags = NoFlags;
+		wip.deletions = null;
 	}
 	//? q 如果是mount阶段，下面除了updateQueue其实没有必要再赋值了吧？
 	wip.type = current.type;
