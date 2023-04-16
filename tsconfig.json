@@ -1,5 +1,6 @@
 {
 	"compileOnSave": true,
+	"include": ["./packages/**/*"],
 	"compilerOptions": {
 		"jsx": "preserve",
 		"target": "ESNext",
