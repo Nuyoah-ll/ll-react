@@ -1,6 +1,6 @@
 {
 	"compileOnSave": true,
-	"include": ["./packages/**/*"],
+	"include": ["./packages/**/*", "../ll-react"],
 	"compilerOptions": {
 		"jsx": "preserve",
 		"target": "ESNext",
@@ -20,7 +20,9 @@
 		"skipLibCheck": true,
 		"baseUrl": "./packages",
 		"paths": {
-			"hostConfig": ["./react-dom/src/hostConfig.ts"]
+			"hostConfig": ["./react-dom/src/hostConfig.ts"],
+			"react": ["./react/index.ts"],
+			"react-dom": ["./react-dom/index.ts"]
 		}
 	}
 }

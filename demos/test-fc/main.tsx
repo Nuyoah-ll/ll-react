@@ -1,5 +1,5 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
+import { ReactElementType } from 'shared/ReactTypes';
 
 const App = () => {
 	return (
@@ -13,9 +13,5 @@ const A = () => {
 	return <h3>hehe</h3>;
 };
 
-console.log(React);
-console.log(ReactDOM);
-console.log(App);
-
 const root = document.querySelector('#root') as Element;
-ReactDOM.createRoot(root).render(<App />);
+ReactDOM.createRoot(root).render((<App />) as ReactElementType);
