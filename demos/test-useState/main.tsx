@@ -4,7 +4,7 @@ import { ReactElementType } from 'shared/ReactTypes';
 
 const App = () => {
 	return (
-		<div>
+		<div onClick={() => console.log('哈哈哈')}>
 			<A></A>
 		</div>
 	);

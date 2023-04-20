@@ -24,6 +24,7 @@ export const renderWithHooks = (wip: FiberNode) => {
 	// 赋值操作
 	currentlyRenderingFiber = wip;
 	// 为什么这里要赋值为null呢？因为我们在下面执行函数组件时，要创建hooks链表
+	// ? 假如是update流程，为啥要将memorizedState赋值为null
 	wip.memorizedState = null;
 
 	const current = wip.alternate;
@@ -49,6 +50,7 @@ export const renderWithHooks = (wip: FiberNode) => {
 
 const HooksDispatcherOnMount: Dispatcher = {
 	useState: mountState
+	// useEffect: mountEffect
 };
 
 const HooksDispatcherOnUpdate: Dispatcher = {
@@ -58,7 +60,7 @@ const HooksDispatcherOnUpdate: Dispatcher = {
 function mountState<State>(
 	initialState: State | (() => State)
 ): [State, Dispatch<State>] {
-	// 找到当前useState对应的hook数据
+	// 创建当前useState对应的hook数据
 	const hook = mountWorkInProgressHook();
 	let memorizedState;
 	if (initialState instanceof Function) {
@@ -67,12 +69,17 @@ function mountState<State>(
 		memorizedState = initialState;
 	}
 
+	// 初始化hook：初始化updateQueue，初始化memorizedState
 	const queue = createUpdateQueue<State>();
 	hook.updateQueue = queue;
 	hook.memorizedState = memorizedState;
 
+	// setState本质上是一个dispatch函数，该函数会关联当前函数组件对应的fiber，以及该useState的updateQueue
+	// 当在函数组件中执行了setState后（这里我们并没有处理在挂载的时候就执行setState的逻辑，仅考虑通过事件触发或者其他方式触发比如setTimeout）
+	// 我们会用新的action创建一个update并放到当前useState hook的updateQueue上，并且从当前fiber开始调度更新
 	// @ts-ignore
 	const dispatch = dispatchSetState.bind(null, currentlyRenderingFiber, queue);
+	// 将dispatch存到当前hook的updateQueue中
 	queue.dispatch = dispatch;
 
 	// 在React中，可以在函数外部使用dispatch
@@ -120,6 +127,11 @@ function dispatchSetState<State>(
 	// scheduleUpdateOnFiber(hostRootFiber);
 }
 
+/**
+ * 在mount阶段，创建hook，并将函数组件中的所有hooks由上到下形成一个链表结构，存储在memorizedState中
+ * 在每次renderWithHook函数调用之后，该函数里的workInProgressHook会被重置
+ * @returns 当前执行到的hook
+ */
 function mountWorkInProgressHook(): Hook {
 	const hook: Hook = {
 		memorizedState: null,
