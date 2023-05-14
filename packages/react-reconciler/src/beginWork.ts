@@ -59,7 +59,7 @@ function updateHostRoot(wip: FiberNode) {
 	const pending = updateQueue.shared.pending;
 	updateQueue.shared.pending = null;
 	const { memorizedState } = processUpdateQueue(baseState, pending);
-	// 在mount的时候，这里的memorizedState为<App>，这样我们就获取了子fiberNode对应的element
+	// 在mount和update的时候，这里的memorizedState为<App>，这样我们就获取了子fiberNode对应的element
 	wip.memorizedState = memorizedState;
 
 	const nextChildren = wip.memorizedState;

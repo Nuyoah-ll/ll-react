@@ -25,6 +25,8 @@ export const renderWithHooks = (wip: FiberNode) => {
 	currentlyRenderingFiber = wip;
 	// 为什么这里要赋值为null呢？因为我们在下面执行函数组件时，要创建hooks链表
 	// ? 假如是update流程，为啥要将memorizedState赋值为null
+	// 如果是update流程，任然要清空wip fiber的memorizedState（继承自current fiber），因为后续在执行函数组件的过程中
+	// 会重新根据current fiber的memorizedState上的hook对象链表重新生成一个新的hook对象链表给wip fiber，详见updateWorkInProgressHook逻辑
 	wip.memorizedState = null;
 
 	const current = wip.alternate;
@@ -93,7 +95,7 @@ function mountState<State>(
 }
 
 function updateState<State>(): [State, Dispatch<State>] {
-	// 找到当前useState对应的hook数据
+	// 根据current fiber上对应的hook对象创建new hook对象，这个new Hook对象会继承hook对象的memorizedState以及updateQueue
 	const hook = updateWorkInProgressHook();
 
 	// 计算新的state的逻辑
@@ -172,10 +174,11 @@ function updateWorkInProgressHook(): Hook {
 		nextCurrentHook = currentHook.next;
 	}
 
+	// react不允许hook写在函数调用，判断条件里，hook在任何阶段执行应该都是一致的
 	if (nextCurrentHook === null) {
 		// mount时和上一次update时，假如有三个useState，u1,u2,u3
 		// 这次update时，假如有四个useState，u1,u2,u3,u4
-		// 那么这种情况下回走这个逻辑
+		// 那么这种情况下会走这个逻辑
 		throw new Error(
 			`组件${currentlyRenderingFiber?.type}本次执行的hook比上一次执行多`
 		);
