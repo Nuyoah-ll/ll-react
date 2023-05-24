@@ -115,15 +115,16 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 		return fiber;
 	}
 
+	// returnFiber当前的wip fiber; currentFirstChild为wip fiber对应的current fiber的child； newChild 新的element
 	// 在原版react中，newChild的类型就是any，虽然当前我们只用考虑reactElement的情况，但是实际上react中还有很多其他类型
 	function reconcileChildrenArray(
 		returnFiber: FiberNode,
 		currentFirstChild: FiberNode | null,
 		newChild: any[]
 	) {
-		// 最后一个可复用的fiber在current fiber中的位置
+		// 最后一个可复用的fiber在current child fiber中的位置
 		let lastPlacedIndex = 0;
-		// 创建的最后一个fiber，对应的updateFromMap的返回值
+		// 创建或者是复用的最后一个fiber，对应的updateFromMap的返回值
 		let lastNewFiber: FiberNode | null = null;
 		// 创建的第一个fiber，也就是reconcileChildrenArray函数返回的下一个wip fiber
 		let firstNewFiber: FiberNode | null = null;
@@ -143,6 +144,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 			// 2. 遍历new Child，寻找是否可复用
 			const after = newChild[i];
 			const newFiber = updateFromMap(returnFiber, existingChildren, i, after);
+			// 当element是false null undefined 等时，newFiber为null，直接跳过该element
 			if (newFiber === null) {
 				continue;
 			}
@@ -163,11 +165,13 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 				continue;
 			}
 
+			//! TODO 这里移动的逻辑有点看不懂，再研究研究。。
 			const current = newFiber.alternate;
+			// 代表复用的newFiber
 			if (current !== null) {
 				const oldIndex = current.index;
 				if (oldIndex < lastPlacedIndex) {
-					// 移动
+					//? 为什么移动也标记为Placement
 					newFiber.flags |= Placement;
 					continue;
 				} else {
@@ -175,7 +179,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 					lastPlacedIndex = oldIndex;
 				}
 			} else {
-				// fiber不能复用，插入新节点
+				// 代表newFiber是新建的，插入新节点
 				newFiber.flags |= Placement;
 			}
 		}
@@ -197,7 +201,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 		const keyToUse = element.key !== null ? element.key : index;
 		const before = existingChildren.get(keyToUse);
 
-		// HostText
+		// 如果新的element是HostText
 		if (typeof element === 'string' || typeof element === 'number') {
 			if (before) {
 				if (before.tag === HostText) {
@@ -208,7 +212,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 			return new FiberNode(HostText, { content: element + '' }, null);
 		}
 
-		// ReactElement
+		// 如果新的element是ReactElement
 		if (typeof element === 'object' && element !== null) {
 			switch (element.$$typeof) {
 				case REACT_ELEMENT_TYPE:
