@@ -176,33 +176,7 @@ updateContainer 会进行如下初始化操作：
 - [ ] 合成事件
 - [ ] react 的更新队列
 
-### react 的 diff 算法
+### Fiber 相关？
 
-在 beginWork 中，没有命中 bailout 策略的 fiberNode 会根据所处的不同阶段(mount 或者 update)进入 mountChildFibers 或者 reconcileChildFibers，他们的区别在于是否追踪副作用。
-
-Diff 算法本身也会带来性能损耗，React 文档中提到，即使在最前沿的算法中，将前后两棵树完全比对的算法的复杂度为 O(n^3)，其中 n 是树中元素的数量，为了降低复杂度，react 的 diff 算法会预设三个限制。
-
-1. 只对同级元素进行 diff，如果一个 DOM 元素在前后两次更新中跨越了阶层，那么 React 不会尝试复用。
-2. 两个不同类型的元素会产生不同的树。如果元素由 div 变成了 p，那么 react 会销毁 div 及其子孙元素，并新建 p 及其子孙元素。
-3. 开发者可以通过 key 来暗示哪些子孙元素在不同的渲染下能够保持稳定。
-
-reconcileChildFibers 方法执行流程如下：
-首先它会接受 wip fiber、 其对应的 current fiber 的第一个 child fiber、newChild（子 ReactElement，生成该子 reactElement 的流程在 beginWork 里）
-
-newChild 可以为如下不同的类型：
-
-- object 类型
-- 数组类型
-- iterator 函数类型
-- string 或者是 number 类型
-
-根据 Diff 算法的第一条限制“只对同级元素进行 Diff”，可以将 Diff 流程分为两类：
-
-1. 单节点 diff。当 newChild 类型为 object、number、string 时，代表更新之后同级只有一个元素，此时会根据 newChild 和 current fiber 的 child Fiber 创建 wip fiber，并返回 wip fiber；
-2. 多节点 diff。当 newChild 类型为 Array 和 iterator，代表更新后同级有多个元素，此时会遍历 newChild 创建 wip fiber 及其兄弟 fiber，并返回 wip FiberNode
-
-#### 单节点 diff
-
-#### 多节点 diff
-
-- [ ] iterator 函数类型是什么类型
+后续再总结，下面是一些参考文章：
+[Why Fiber](https://i.overio.space/fiber/why-fiber/)
