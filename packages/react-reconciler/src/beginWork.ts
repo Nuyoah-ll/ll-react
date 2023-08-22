@@ -5,6 +5,7 @@ import { mountChildFibers, reconcileChildFibers } from './childFibers';
 import { FiberNode } from './fiber';
 import { processUpdateQueue, UpdateQueue } from './updateQueue';
 import {
+	Fragment,
 	FunctionComponent,
 	HostComponent,
 	HostRoot,
@@ -24,6 +25,9 @@ export const beginWork = (wip: FiberNode) => {
 		// hostText类型的fiber没有子节点，不需要进行任何操作，直接返回null即可
 		case HostText:
 			return null;
+
+		case Fragment:
+			return updateFragment(wip);
 
 		case FunctionComponent:
 			return updateFunctionComponent(wip);
@@ -71,6 +75,12 @@ function updateHostRoot(wip: FiberNode) {
 function updateHostComponent(wip: FiberNode) {
 	const nextProps = wip.pendingProps;
 	const nextChildren = nextProps.children;
+	reconcileChildren(wip, nextChildren);
+	return wip.child;
+}
+
+function updateFragment(wip: FiberNode) {
+	const nextChildren = wip.pendingProps;
 	reconcileChildren(wip, nextChildren);
 	return wip.child;
 }
